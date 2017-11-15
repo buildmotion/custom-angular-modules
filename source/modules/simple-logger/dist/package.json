@@ -1,0 +1,31 @@
+{
+    "name": "custom-angular-modules",
+    "version": "1.0.0",
+    "description": "An Angular custom module that contains foundation elements for buildmotion Angular applications. Basically, the framework for buildmotion NG.",
+    "main": "index.js",
+    "typings": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/buildmotion/custom-angular-modules"
+    },
+    "keywords": [
+        "angular",
+        "custom",
+        "module",
+        "logging"
+    ],
+    "author": {
+        "name": "Matt Vaughn",
+        "email": "matt.vaughn@buildmotion.com",
+        "url": "http://www.buildmotion.com"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/buildmotion/custom-angular-modules/issues"
+    },
+    "homepage": "https://github.com/buildmotion/custom-angular-modules#readme",
+    "peerDependencies": {
+        "@angular/common": "^5.0.1",
+        "@angular/core": "^5.0.1"
+    }
+}

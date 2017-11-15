@@ -296,8 +296,9 @@ The only project member we need to expose is the module itself. The module will 
 
 Add a new file ` index.ts ` in the ` app ` folder. This file will be used to reference the items in the module.
 
-
+```javascript
 ng generate module simpleLogger
+```
 
 ### SimpleLoggerModule
 We are not ready to add the ` @NgModule ` to the project. We can use the CLI to do this. Use the following command to add an Angular module to the project. 
@@ -421,39 +422,40 @@ export class SimpleLoggerService {
 ```
 
 ### Dist Package.json Configuration
-asdf
+In order to publish the module, we will need to provide some information to the ` output` of the build process. The ` dist ` folder needs a ` package.json ` file with some similar configuration - but with a slight change to the dependency section. 
+
+Notice, this ` package.json ` does NOT have a ` devDependencies ` or ` dependencies ` section. 
 
 ```
 {
-  "name": "buildmotion-foundation",
-  "version": "1.0.8",
-  "description": "An Angular custom module that contains foundation elements for buildmotion Angular applications. Basically, the framework for buildmotion NG.",
-  "main": "bundles/buildmotion-foundation.umd.js",
-  "module": "index.js",
-  "typings": "index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/buildmotion/buildmotion-foundation"
-  },
-  "keywords": [
-     "angular",
-    "custom",
-    "module",
-    "logging"
-  ],
-  "author": {
-    "name": "Matt Vaughn",
-    "email": "matt.vaughn@buildmotion.com",
-    "url": "http://www.buildmotion.com"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/buildmotion/buildmotion-foundation/issues"
-  },
-  "homepage": "https://github.com/buildmotion/buildmotion-foundation#readme",
-  "peerDependencies": {
-    "@angular/common": "^5.0.1",
-    "@angular/core": "^5.0.1"
-  }
+    "name": "custom-angular-modules",
+    "version": "1.0.0",
+    "description": "An Angular custom module that contains foundation elements for buildmotion Angular applications. Basically, the framework for buildmotion NG.",
+    "main": "index.js",
+    "typings": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/buildmotion/custom-angular-modules"
+    },
+    "keywords": [
+        "angular",
+        "custom",
+        "module",
+        "logging"
+    ],
+    "author": {
+        "name": "Matt Vaughn",
+        "email": "matt.vaughn@buildmotion.com",
+        "url": "http://www.buildmotion.com"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/buildmotion/custom-angular-modules/issues"
+    },
+    "homepage": "https://github.com/buildmotion/custom-angular-modules#readme",
+    "peerDependencies": {
+        "@angular/common": "^5.0.1",
+        "@angular/core": "^5.0.1"
+    }
 }
 ```
