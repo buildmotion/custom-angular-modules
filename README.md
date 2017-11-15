@@ -28,7 +28,7 @@ We will use the Angular CLI tool to generate module items. The CLI tool will cre
 npm install -g @angular/cli@latest
 ```
 
-## Typscript Install
+## Typescript Install
 We will use the latest compatible version of Typescript. 
 
 ```javascript
@@ -44,7 +44,7 @@ Create a ` simple-logger ` folder on your computer.
 mkdir simple-logger
 ```
 
-Since we will take advantage of the ` angular-cli ` tool we need to add (2) folders to suppor the tooling and folder conventions of the CLI.
+Since we will take advantage of the ` angular-cli ` tool we need to add (2) folders to support the tooling and folder conventions of the CLI.
 
 Create the following folder structure in the root of the project. 
 
