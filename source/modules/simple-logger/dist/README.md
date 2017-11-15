@@ -459,18 +459,3 @@ Notice, this ` package.json ` does NOT have a ` devDependencies ` or ` dependenc
     }
 }
 ```
-
-## Publishing Your Module to NPM
-Use your NPM account credentials and publish the module to NPM.
-
-```javascript
-npm login
-```
-
-Make sure you change your directory to the ` dist ` folder before you publish to NPM.
-
-```javascript
-cd .\dist\
-npm version patch
-npm publish
-```
