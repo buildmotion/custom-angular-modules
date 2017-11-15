@@ -4,6 +4,8 @@
   "description": "A simple logger module for Angular applications.",
   "main": "index.js",
   "scripts": {
+    "transpile": "ngc",
+    "build": "npm run transpile",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -13,5 +15,11 @@
     "logging"
   ],
   "author": "Matt Vaughn",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@angular/cli": "^1.5.0",
+    "@angular/common": "^5.0.1",
+    "@angular/compiler": "^5.0.1",
+    "@angular/core": "^5.0.1"
+  }
 }
