@@ -1,0 +1,17 @@
+{
+  "name": "simple-logger",
+  "version": "1.0.0",
+  "description": "A simple logger module for Angular applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "angular",
+    "custom",
+    "module",
+    "logging"
+  ],
+  "author": "Matt Vaughn",
+  "license": "MIT"
+}
