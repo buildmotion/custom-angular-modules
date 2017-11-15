@@ -35,7 +35,7 @@ We will use the latest compatible version of Typescript.
 npm install -g typescript@'>=2.4.2 <2.5.0'
 ```
 
-## Create New Module
+## Setup
 Now that we have the basic tools installed we are ready to create a new custom angular module. We will need a new folder to build out the new custom module.
 
 Create a ` simple-logger ` folder on your computer. 
@@ -43,6 +43,15 @@ Create a ` simple-logger ` folder on your computer.
 ```javascript
 mkdir simple-logger
 ```
+
+Since we will take advantage of the ` angular-cli ` tool we need to add (2) folders to suppor the tooling and folder conventions of the CLI.
+
+Create the following folder structure in the root of the project. 
+
+```javascript
+src\app
+```
+
 
 ### package.json
 Use the the npm command to create a new package.json file for the new project. This file will be used to define our module dependencies. 
@@ -81,6 +90,30 @@ Update the ` scripts ` section to include the following.
 ```
 
 The current ` package.json ` file does not have any ` devDependencies ` or ` Dependencies `. We will need to either update the file or use the ` npm ` command to add the packages to our module project. 
+
+Run the following in the terminal to add the ` devDependencies ` to the project. Note: you might have to be running Visual Studio Code in Administrator.
+
+```javascript
+npm install --save-dev @angular/cli@latest
+npm install --save-dev @angular/common@latest
+npm install --save-dev @angular/compiler@latest
+npm install --save-dev @angular/core@latest
+npm install --save-dev @angular/compiler-cli@latest
+npm install --save-dev typescript@'>=2.4.2 <2.5.0'
+```
+
+The npm install ' --save-dev ` will update the ` devDependencies ` section in the ` package.json ` file. 
+
+```javascript
+"devDependencies": {
+    "@angular/cli": "^1.5.0",
+    "@angular/common": "^5.0.1",
+    "@angular/compiler": "^5.0.1",
+    "@angular/compiler-cli": "^5.0.1",
+    "@angular/core": "^5.0.1",
+    "typescript": "^2.4.2"
+  }
+```
 
 ### tsconfig.json
 Use the Typescript command to create a ` tsconfig.json ` file for the application. The configuration information in this file will be used to compile the Typescript. 
@@ -232,6 +265,40 @@ The final configuration for ` tsconfig.json `
 }
 ```
 
+### angular-cli.json
+Since we want to take advantage of the Angular CLI tool, we'll need to add a ` angular-cli.json ` configuration file to the root of the project. Use the following content as a template for the configuration.
+
+```javascript
+{
+    "project": {
+        "version": "1.0.0",
+        "name": "simple-logger"
+    },
+    "apps": [
+        {
+            "tsconfig": "tsconfig.json",
+            "mobile": false,
+            "root": "src",
+            "prefix": "app"
+        }
+    ],
+    "defaults": {
+        "styleExt": "css",
+        "prefixInterfaces": false,
+        "lazyRoutePrefix": "+"
+    }
+}
+```
+
+### index.ts
+This file is really the most important element of the solution. It will allow you to publicly expose (can I say that in technical documentation?) or allow clients to find the specified module of the package - which is very important to Angular applications.
+
+The only project member we need to expose is the module itself. The module will actually define what elements of the module are publicly visible - more on that later.
+
+Add a new file ` index.ts ` in the ` app ` folder. This file will be used to reference the items in the module.
+
+
+ng generate module simpleLogger
 
 ```javascript
 .\node_modules\.bin\ngc .\tsconfig.json
