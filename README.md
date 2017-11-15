@@ -474,3 +474,35 @@ cd .\dist\
 npm version patch
 npm publish
 ```
+
+## Default Build Task Configuration
+So far, we have been using the command below to build the project. 
+
+```
+.\node_modules\.bin\ngc .\tsconfig.json
+```
+
+Use the command below to select the ` Tasks: Configure Default Build Task ` item from the list. Select the ` npm: Build ` option.
+```
+Ctrl + p
+>task
+```
+
+![](images/task.png)
+
+A new ` task.json ` configuration file is created in the ` .vscode ` folder in your project. Now that you have configured the default build task, you can use the run the menu ` Tasks | Run Build Task ... ` to build the project. Or, you can use the keyboard short cut: ` Ctrl+Shift+B ` to do the same thing.
+
+```javascript
+{
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
+```
