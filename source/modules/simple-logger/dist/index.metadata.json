@@ -1,0 +1,1 @@
+[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./simple-logger/simple-logger.module"},{"from":"./simple-logger/simple-logger.service"},{"from":"./simple-logger/severity.enum"}]}]

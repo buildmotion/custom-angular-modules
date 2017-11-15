@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/app/index.ts"],"names":[],"mappings":"AAAA,cAAc,sCAAsC,CAAC;AACrD,cAAc,uCAAuC,CAAC;AACtD,cAAc,+BAA+B,CAAC","sourcesContent":["export * from './simple-logger/simple-logger.module';\r\nexport * from './simple-logger/simple-logger.service';\r\nexport * from './simple-logger/severity.enum';\r\n"]}

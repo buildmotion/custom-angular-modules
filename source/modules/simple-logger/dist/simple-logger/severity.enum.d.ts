@@ -1,0 +1,2 @@
+export declare enum Severity {
+}

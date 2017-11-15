@@ -250,7 +250,6 @@ The final configuration for ` tsconfig.json `
       ]
     },
     /* Source Map Options */
-    "inlineSourceMap": true, /* Emit a single file with source maps instead of having a separate file. */
     "inlineSources": true, /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
     /* Experimental Options */
     "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */
@@ -300,6 +299,161 @@ Add a new file ` index.ts ` in the ` app ` folder. This file will be used to ref
 
 ng generate module simpleLogger
 
+### SimpleLoggerModule
+We are not ready to add the ` @NgModule ` to the project. We can use the CLI to do this. Use the following command to add an Angular module to the project. 
+
+```javascript
+ng generate module simpleLogger
+```
+
+Add an ` export ` statement to the ` index.ts ` file to reference the new module. 
+
+```javascript
+export * from './simple-logger/simple-logger.module';
+```
+
+We are now ready to build the module project.
+
 ```javascript
 .\node_modules\.bin\ngc .\tsconfig.json
+```
+
+The ` dist ` folder will be created (as indicated in our ` outDir ` setting in the ` tsconfig.json `) - with the output of the ` ngc ` compile operation.
+
+![](images/dist-output-from-ngc-build.png)
+
+### SimpleLoggerService
+Use the Angular CLI to create a service for the module. 
+
+```
+ng generate service simple-logger\simpleLogger
+```
+
+The CLI creates a service class with the ` @Injectable ` decorator. 
+
+**simple-logger.service.ts**
+```javascript
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class SimpleLoggerService {
+  constructor() { }
+}
+```
+
+Since we have a new member of the module, we can add it to the ` index.ts ` file.
+
+```javascript
+export * from './simple-logger/simple-logger.service';
+```
+
+Run the build command to create the ` index.js ` file in the ` dist ` folder. 
+
+```javascript
+.\node_modules\.bin\ngc .\tsconfig.json
+```
+
+```
+export * from './simple-logger/simple-logger.module';
+export * from './simple-logger/simple-logger.service';
+//# sourceMappingURL=index.js.map
+```
+
+### Severity Enum,
+We will now create a new member of the module. Remember to add the item to the ` index.ts ` file.
+
+```javascript
+ng generate enum simple-logger\severity
+```
+
+The output of the CLI operation is:
+
+```
+export enum Severity {
+}
+```
+
+Add some enum options.
+
+```javascript
+export enum Severity {
+    Information = 1,
+    Warning = 2,
+    Error = 3,
+    Critical = 4,
+    Debug = 5
+}
+```
+
+### Add A Module Feature
+Now that we have a service, we can add some functionality to make it more useful. 
+
+```javascript
+import { Injectable } from '@angular/core';
+import { Severity } from './severity.enum';
+
+@Injectable()
+export class SimpleLoggerService {
+
+  private source: string;
+  private severity: Severity;
+  private message: string;
+  private timestamp: Date;
+
+  constructor() { }
+
+  /**
+   * Use to create a log item in the application console.
+   * @param source 
+   * @param severity 
+   * @param message 
+   */
+  log(source: string, severity: Severity, message: string) {
+    this.source = source;
+    this.severity = severity;
+    this.message = message;
+    this.timestamp = new Date();
+    const msg = `${this.message}`;
+
+    console.log(`${this.severity} from ${this.source}: ${msg} (${this.timestamp})`);
+  }
+}
+```
+
+### Dist Package.json Configuration
+asdf
+
+```
+{
+  "name": "buildmotion-foundation",
+  "version": "1.0.8",
+  "description": "An Angular custom module that contains foundation elements for buildmotion Angular applications. Basically, the framework for buildmotion NG.",
+  "main": "bundles/buildmotion-foundation.umd.js",
+  "module": "index.js",
+  "typings": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/buildmotion/buildmotion-foundation"
+  },
+  "keywords": [
+     "angular",
+    "custom",
+    "module",
+    "logging"
+  ],
+  "author": {
+    "name": "Matt Vaughn",
+    "email": "matt.vaughn@buildmotion.com",
+    "url": "http://www.buildmotion.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/buildmotion/buildmotion-foundation/issues"
+  },
+  "homepage": "https://github.com/buildmotion/buildmotion-foundation#readme",
+  "peerDependencies": {
+    "@angular/common": "^5.0.1",
+    "@angular/core": "^5.0.1"
+  }
+}
 ```
