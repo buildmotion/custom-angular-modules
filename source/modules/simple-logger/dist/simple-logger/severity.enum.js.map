@@ -1,1 +1,1 @@
-{"version":3,"file":"severity.enum.js","sourceRoot":"","sources":["../../src/app/simple-logger/severity.enum.ts"],"names":[],"mappings":"AAAA,MAAM,CAAN,IAAY,QACX;AADD,WAAY,QAAQ;GAAR,QAAQ,KAAR,QAAQ,QACnB","sourcesContent":["export enum Severity {\n}\n"]}
+{"version":3,"file":"severity.enum.js","sourceRoot":"","sources":["../../src/app/simple-logger/severity.enum.ts"],"names":[],"mappings":"AAAA,MAAM,CAAN,IAAY,QACX;AADD,WAAY,QAAQ;GAAR,QAAQ,KAAR,QAAQ,QACnB","sourcesContent":["export enum Severity {\r\n}\r\n"]}

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-var SimpleLoggerService = (function () {
+import { Severity } from './severity.enum';
+var SimpleLoggerService = /** @class */ (function () {
     function SimpleLoggerService() {
     }
     /**
@@ -28,11 +29,6 @@ var SimpleLoggerService = (function () {
         var msg = "" + this.message;
         console.log(this.severity + " from " + this.source + ": " + msg + " (" + this.timestamp + ")");
     };
-    SimpleLoggerService.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    SimpleLoggerService.ctorParameters = function () { return []; };
     return SimpleLoggerService;
 }());
 export { SimpleLoggerService };

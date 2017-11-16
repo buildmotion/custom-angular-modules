@@ -1,18 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-var SimpleLoggerModule = (function () {
+var SimpleLoggerModule = /** @class */ (function () {
     function SimpleLoggerModule() {
     }
-    SimpleLoggerModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [
-                        CommonModule
-                    ],
-                    declarations: []
-                },] },
-    ];
-    /** @nocollapse */
-    SimpleLoggerModule.ctorParameters = function () { return []; };
     return SimpleLoggerModule;
 }());
 export { SimpleLoggerModule };

@@ -506,3 +506,233 @@ A new ` task.json ` configuration file is created in the ` .vscode ` folder in y
     ]
 }
 ```
+
+# Using a Custom Module...Business as Usual, Right?
+
+Now that we have a custom angular module, we are ready to use it in one of Angular applications. We created a new web application in a local development folder. Once again, use the Angular CLI to create a new application. 
+
+```javascript
+ng new ngAppOne
+```
+
+## Using the Module
+Since we published the SimpleLoggingModule to NPM, we can use npm to retrieve the package and add the reference in our ` package.json ` file. We use the latest version of the package - in this case it is a ` 1.0.x ` version. Later, we'll update the module to include some enhanced features (version ` 2.0.x`) and use the new version in a different web application. This will demonstrate the process of versioning the module and its usage by different applications. 
+
+The ` 1.0.3 ` version contains the basic feature of just logging to the application's console. This is fine for now, we are demonstrating the end-to-end path of creating a module, publishing the module, and consuming the module in an application. 
+
+```javascript
+npm i --save custom-angular-modules@1.0.3
+```
+
+When we use the ` --save ` switch, npm will update our ` dependencies ` section of the ` package.json ` file to include our requested package. Notice that the version requested was ` 1.0.3 `, however, npm updated the reference to ` ^1.0.3 `. This 
+
+* More information about  [https://docs.npmjs.com/getting-started/semantic-versioning](https://docs.npmjs.com/getting-started/semantic-versioning)
+
+        Caret ranges are ideal when an author may make breaking changes between 0.2.4 
+        and 0.3.0 releases, which is a common practice. However, it presumes that there 
+        will not be breaking changes between 0.2.4 and 0.2.5. It allows for changes 
+        that are presumed to be additive (but non-breaking), according to commonly 
+        observed practices.
+
+```javascript
+ "dependencies": {
+    "@angular/common": "^2.4.0",
+    "@angular/compiler": "^2.4.0",
+    "@angular/core": "^2.4.0",
+    "@angular/forms": "^2.4.0",
+    "@angular/http": "^2.4.0",
+    "@angular/platform-browser": "^2.4.0",
+    "@angular/platform-browser-dynamic": "^2.4.0",
+    "@angular/router": "^3.4.0",
+    "core-js": "^2.4.1",
+    "custom-angular-modules": "^1.0.3",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.7.6"
+  }
+  ```
+
+### Let's Attempt to Compile
+
+Compile the application. We will now get the following ERROR. Oh no. There is a version mismatch - this is a typical dependency issue that all custom module developers need to be aware of. 
+
+        ERROR in Metadata version mismatch for module ./source/apps/ngAppOne/node_modules/custom-angular-modules/index.d.ts, 
+        found version 4, expected 3, resolving symbol AppModule in ./source/apps/ngAppOne/src/app/app.module.ts, 
+        resolving symbol AppModule in ./source/apps/ngAppOne/src/app/app.module.ts
+
+We will need to fix this problem by going back to the code of the custom module.  We will need to make sure that we are referencing the correct module dependencies and versions to make sure they are compatible with the consumer of this custom module. Making any changes to the custom module will require us to publish a new version to NPM so that consumers of the module will no longer have the version error as shown above.
+
+After examining the versions in the custom module we see that this module is using version 5 for core common. However, the web application is referencing version 2 of the same modules.  Therefore, if we upgrade the web application to use the latest versions of angular we will be in sync with the custom module that we developed. 
+
+We can upgrade the versions of the angular and CLI modules by running the followign NPM commands. This issue demonstrates the the requirement of managing dependencies and versions for the application and also the custom module under consideration. 
+
+```javascript
+npm install --save @angular/common@latest
+npm install --save @angular/compiler@latest
+npm install --save @angular/core@latest
+npm install --save @angular/forms@latest
+npm install --save @angular/http@latest
+npm install --save @angular/platform-browser@latest
+npm install --save @angular/platform-browser-dynamic@latest
+npm install --save @angular/router@latest
+npm install --save-dev typescript@2.4.2
+npm install --save-dev @angular/cli@latest
+npm install --save-dev @angular/compiler-cli@latest
+```
+
+Let's attempt another compile. A general rule for Angular applications is to use the same version for all @angular modules.
+
+```
+> Executing task: npm run build <
+
+> ng-app-one@0.0.0 build B:\development\custom-angular-modules\source\apps\ngAppOne
+> ng build
+
+Date: 2017-11-15T21:10:56.800Z
+Hash: 813e0fe8dcae8310e61b
+Time: 8089ms
+chunk {inline} inline.bundle.js, inline.bundle.js.map (inline) 5.83 kB [entry] [rendered]
+chunk {main} main.bundle.js, main.bundle.js.map (main) 7.09 kB [initial] [rendered]
+chunk {polyfills} polyfills.bundle.js, polyfills.bundle.js.map (polyfills) 185 kB [initial] [rendered]
+chunk {styles} styles.bundle.js, styles.bundle.js.map (styles) 11.3 kB [initial] [rendered]
+chunk {vendor} vendor.bundle.js, vendor.bundle.js.map (vendor) 2.68 MB [initial] [rendered]
+ 
+Terminal will be reused by tasks, press any key to close it.
+```
+
+### Dependencies
+There are always dependencies in software applications. Applications will rely on underlying frameworks like .NET, ASP.NET, Angular, jQuery, or others. Your software is in different states over time and so are the ` custom angular modules ` that you develop. Therefore in the stream of time your application will always be evolving and they will have different versions. Also, the modules and packages that you depend on will also evolve over time and will be in different versions as well. 
+
+So as a custom module developer, you will need to target specific versions of dependencies so that consumers of your custom module will be able to use it.  For example, if I am using the latest version of Angular which by the way his version 5 and consumers of your module are using a earlier version you will have an incompatibility problems - as seen in the error above.
+
+One way around this is to use a ` lowest common denominator ` approach when developing a custom module. This will allow users of your custom module to access to all the features of the module and still have the benefit of using a lower version of Typescript or Angular or other dependencies that that they may have. You then have an opportunity to create newer versions of your module with different dependencies.  By doing this,  you allow users of your module to target a specific version that is compatible with their application.
+
+If you are a custom module developer and you are consuming your own modules (i.e., private development environment) then your concern will only be making sure that the dependency versions are aligned and in sync with the application that you develop in. This is much easier. If this is your scenario, you might want to consider purchasing an `NPM ` private repository so that your modules are only available to your development team. 
+
+### Updating the Application Module to use the LoggingModule
+Basically, we need to **provide** the ` SimpleLoggerService ` to the application. In our example, we will do this in the ` AppModule `. As your application grows, or if you are building an application of a known size/structure/importance etc., you might consider adding these modules in either ` CoreModule ` or ` SharedModule ` items as determined by their usage and scope. A ` CoreModule ` should only be initialized once in the application - The core module has a special purpose and only a single instance is required. See the slide deck presentation or the video presentations when they're available on [https://angularlicious.teachable.com](https://angularlicious.teachable.com) for a more detailed explanations of when/how you would use Core and Shared modules. 
+
+Import the module and service. The ` custom-angular-modules ` package/module should be installed in the ` node_modules ` directory of the application. If you do not have this folder, you will need to run the ` npm install ` command to create it. 
+
+```
+import { SimpleLoggerModule, SimpleLoggerService } from 'custom-angular-modules';
+```
+
+Now that we have a reference to the service, we can add it to the ` providers ` list in the ` @NgModule ` declaration section. When we provide the service in the ` AppModule ` it means the scope of the service is global to the entire application. For this type of service, this is exactly what we want. Therefore as a module developer you wouldn't want to provide the service in the custom module that you are developing. You would want the consumer of your module to be able to have control over when and where the ` service ` is provided. So if your custom module is a ` service module ` you would never want to provide that service in the ` @NgModule ` providers declaration. 
+
+After the changes to the ` app.module.ts ` code,  the new ` SimpleLoggerService ` will now be available to other members of the application. 
+
+```javascript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
+import { SimpleLoggerModule, SimpleLoggerService } from 'custom-angular-modules';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule
+  ],
+  providers: [
+    SimpleLoggerService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+### Adding Components
+Remember that the definition of an angular module is that it is a complainer of closely related things to perform some function or provide features of your application.  Your angular web applicaton has a root module ` AppModule ` - this module can also own components use them to basically compose the features of the application. 
+
+We will add some components to the ` ngAppOne ` application and start using the logging service. Use the following commands to create (3) components.
+
+```
+ng g component coltrane
+ng g component sanborn
+ng g component grover
+```
+
+When we use the Angular CLI tool, it not only creates the components but it also adds them to the module.  This is really cool. I think taking advantage of tools like the angular CLI allows developers to be more efficient; and to focus on building amazing applications rather than spending time writing code that can be generated. When we use scaffolding tools like the CLI it also allows us to be more consistent in our implementation of our services, components, and modules. This is a good thing. 
+
+Therefore, I think it is a great idea to become familiar with all of the abilities of the Angular CLI so that you can improve your practice and delivery of applications, and becoming more efficient. Maybe your friends and coworkers will be amazed at the quality of your code and how fast you deliver your applications.  And you might even get a raise, right? 
+
+
+**app.module.ts**
+```javascript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
+import { SimpleLoggerModule, SimpleLoggerService } from 'custom-angular-modules';
+
+import { AppComponent } from './app.component';
+import { ColtraneComponent } from './coltrane/coltrane.component';
+import { SanbornComponent } from './sanborn/sanborn.component';
+import { GroverComponent } from './grover/grover.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    ColtraneComponent,
+    SanbornComponent,
+    GroverComponent
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule
+  ],
+  providers: [
+    SimpleLoggerService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+
+Now that we some compents to view, we will need to provide some routes to the application. We can implement a new module for routing. Once again let's use the Angular CLI to create a module for providing routes to the application. 
+
+```
+ng g module appRouting
+```
+
+
+**app-routing.module.ts**
+```javascript
+import { NgModule } from '@angular/core';
+import { CommonModule, } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { Routes, RouterModule } from '@angular/router';
+
+import { AppComponent } from './../app.component';
+import { ColtraneComponent } from './../coltrane/coltrane.component';
+import { SanbornComponent } from './../sanborn/sanborn.component';
+import { GroverComponent } from './../grover/grover.component';
+
+const routes: Routes = [
+  { path: 'home', component: AppComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'coltrane', component: ColtraneComponent },
+  { path: 'sanborn', component: SanbornComponent },
+  { path: 'grover', component: GroverComponent },
+];
+
+@NgModule({
+  imports: [
+    CommonModule,
+    BrowserModule,
+    RouterModule.forRoot(routes)
+  ],
+  exports: [
+  ],
+})
+export class AppRoutingModule { }
+```
