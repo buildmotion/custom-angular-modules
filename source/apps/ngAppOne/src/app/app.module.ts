@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-// import { SimpleLoggerModule, SimpleLoggerService } from 'custom-angular-modules';
+import { SimpleLoggerModule, SimpleLoggerService } from 'custom-angular-modules';
 
 import { AppComponent } from './app.component';
 import { ColtraneComponent } from './coltrane/coltrane.component';
@@ -20,10 +20,11 @@ import { GroverComponent } from './grover/grover.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    SimpleLoggerModule
   ],
   providers: [
-    // SimpleLoggerService
+    SimpleLoggerService
   ],
   bootstrap: [AppComponent]
 })
