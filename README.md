@@ -718,7 +718,7 @@ export class AppRoutingModule { }
 ```
 
 # Take Your Module to the Next Level
-Many times, a custom module will require some application-specific information. So, how does Angular provide information to a module? We certainly do not want the module to be responsible for retrieving information that it requires. Angular is consistent in how it provides things. It uses dependency injection. This is how ti works.
+Many times, a custom module will require some application-specific information. So, how does Angular provide information to a module? We certainly do not want the module to be responsible for retrieving information that it requires. Angular is consistent in how it provides things. It uses dependency injection. This is how it works.
 
 1. The custom module provides a structure (i.e., a class) as a container for required configuration. 
 2. When the module is referenced and ` provided ` by the container module, it will call a static ` forRoot() ` method on the target custom module and pass in the ` container ` of information. The container being in the same shape as defined by the module
@@ -871,4 +871,66 @@ Modify the version of the ` ./dist/package.json ` file using the npm command bel
 ```
 npm version major
 npm publish
+```
+
+
+# Version 2.0.0 :: Custom Module with Configuration
+
+Now that we have a 2.0 version of the module, we will create a new web application ` ngAppDos ` that will use the new version of the custom module. So we will update the application's ` package.json ` to use the new version.
+
+```
+npm uninstall custom-angular-modules
+npm install --save custom-angular-modules@latest
+```
+
+Now...let's see if it works, Use ` npm start ` and launch the Chrome debugger. Now the application will fail like a cow - utter failure. See the error below. 
+
+```
+No provider for SimpleLoggerConfig!
+```
+
+This means that we haven't provided the ` SimpleLoggerConfig ` for the ` SimpleLoggerModule `. If you recall, the module contains a static method that we can use to provide the configuration data. We need to update the ` 
+
+```javascript
+SimpleLoggerModule.forRoot({applicationName: `ngAppDos`}),
+```
+
+Notice that we only pass in the shape of the data as a parameter of the ` forRoot() ` method of the ` SimpleLoggerModule `. This is all that is required. 
+
+```javascript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
+
+import { SimpleLoggerModule, SimpleLoggerService } from 'custom-angular-modules';
+import { AppRoutingModule } from './app-routing/app-routing.module';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    SimpleLoggerModule.forRoot({applicationName: `ngAppDos`}),
+    AppRoutingModule, // defines available app routes;
+    RouterModule, // required to engage <router-outlet>
+  ],
+  providers: [
+    SimpleLoggerService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+Now when we run the application. The [applicationName] passed in as configuration to the module is used by the logging service in the module. We now have the name of the application in the log item: ` ngAppDos.AppComponent `. 
+
+```javascript
+from ngAppDos.AppComponent: Running constructor for the AppComponent. (Thu Nov 16 2017 01:18:06 GMT-0700 (Mountain Standard Time))
+simple-logger.service.js:39
 ```
