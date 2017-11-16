@@ -5,6 +5,7 @@ var SimpleLoggerModule = (function () {
     }
     SimpleLoggerModule.decorators = [
         { type: NgModule, args: [{
+                    exports: [],
                     imports: [
                         CommonModule
                     ],

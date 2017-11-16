@@ -1,1 +1,1 @@
-{"moduleName":null,"summaries":[],"symbols":[]}
+{"moduleName":null,"summaries":[{"symbol":{"__symbol":0,"members":[]},"metadata":{"Information":1,"Warning":2,"Exception":3}}],"symbols":[{"__symbol":0,"name":"Severity","filePath":"./severity.enum"}]}
