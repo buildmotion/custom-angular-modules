@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Severity } from './severity.enum';
 
+import { SimpleLoggerConfig } from './simple-logger.config';
+
 @Injectable()
 export class SimpleLoggerService {
 
@@ -8,8 +10,19 @@ export class SimpleLoggerService {
   private severity: Severity;
   private message: string;
   private timestamp: Date;
+  private applicationName: string;
 
-  constructor() { }
+  /**
+   * The constructor for the [SimpleLoggerService].
+   * @param config Configuration information injected into the constructor.
+   */
+  constructor(
+    private config: SimpleLoggerConfig // injected by ng; constructor injection
+  ) {
+    if (config) {
+      this.applicationName = config.applicationName;
+    }
+  }
 
   /**
    * Use to create a log item in the application console.
@@ -24,6 +37,6 @@ export class SimpleLoggerService {
     this.timestamp = new Date();
     const msg = `${this.message}`;
 
-    console.log(`${this.severity} from ${this.source}: ${msg} (${this.timestamp})`);
+    console.log(`${this.severity} from ${this.applicationName}.${this.source}: ${msg} (${this.timestamp})`);
   }
 }

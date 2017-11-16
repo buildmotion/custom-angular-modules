@@ -301,7 +301,7 @@ ng generate module simpleLogger
 ```
 
 ### SimpleLoggerModule
-We are not ready to add the ` @NgModule ` to the project. We can use the CLI to do this. Use the following command to add an Angular module to the project. 
+We are now ready to add the ` @NgModule ` to the project. We can use the CLI to do this. Use the following command to add an Angular module to the project. 
 
 ```javascript
 ng generate module simpleLogger
@@ -600,11 +600,11 @@ Terminal will be reused by tasks, press any key to close it.
 ```
 
 ### Dependencies
-There are always dependencies in software applications. Applications will rely on underlying frameworks like .NET, ASP.NET, Angular, jQuery, or others. Your software is in different states over time and so are the ` custom angular modules ` that you develop. Therefore in the stream of time your application will always be evolving and they will have different versions. Also, the modules and packages that you depend on will also evolve over time and will be in different versions as well. 
+There are always dependencies in software applications. Applications will rely on underlying frameworks like .NET, ASP.NET, Angular, jQuery, or others. Your software is in different states over time and so are the ` custom angular modules ` that you develop. Therefore in the stream of time your application will always be evolving and it will have different versions. Also, the modules and packages that you depend on will also evolve over time and will have different versions as well. 
 
-So as a custom module developer, you will need to target specific versions of dependencies so that consumers of your custom module will be able to use it.  For example, if I am using the latest version of Angular which by the way his version 5 and consumers of your module are using a earlier version you will have an incompatibility problems - as seen in the error above.
+So as a custom module developer, you may need to target specific versions of dependencies so that consumers of your custom module will be able to use it.  For example, if I am using the latest version of Angular, which by the way is version 5, and consumers of your module are using an earlier version, you will have an incompatibility problems - as seen in the error above.
 
-One way around this is to use a ` lowest common denominator ` approach when developing a custom module. This will allow users of your custom module to access to all the features of the module and still have the benefit of using a lower version of Typescript or Angular or other dependencies that that they may have. You then have an opportunity to create newer versions of your module with different dependencies.  By doing this,  you allow users of your module to target a specific version that is compatible with their application.
+One way around this is to use a ` lowest common denominator ` approach when developing a custom module. This will allow users of your custom module to have access to all the features of the module and still have the benefit of using a lower version of Typescript or Angular or other dependencies that that they may have. You then have an opportunity to create newer versions of your module with different dependencies. By doing this, you allow users of your module to target a specific version that is compatible with their application.
 
 If you are a custom module developer and you are consuming your own modules (i.e., private development environment) then your concern will only be making sure that the dependency versions are aligned and in sync with the application that you develop in. This is much easier. If this is your scenario, you might want to consider purchasing an `NPM ` private repository so that your modules are only available to your development team. 
 
@@ -647,18 +647,12 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-### Adding Components
-Remember that the definition of an angular module is that it is a complainer of closely related things to perform some function or provide features of your application.  Your angular web applicaton has a root module ` AppModule ` - this module can also own components use them to basically compose the features of the application. 
+### Updating Components
+Remember that the definition of an angular module is that it is a container of closely related things that work together to provide some feature, service, or functionality.  Your angular web applicaton has a root module ` AppModule ` - this module can also own components use them to basically compose the features of the application. Angular application require at least one component. By default, the Angular CLI creates an ` AppComponent `. 
 
-We will add some components to the ` ngAppOne ` application and start using the logging service. Use the following commands to create (3) components.
+When we use the Angular CLI tool, it not only creates the components but it also adds them to a module. This is really cool. Components are always owned by an ` @NgModule ` - they cannot exist by themselves.
 
-```
-ng g component coltrane
-ng g component sanborn
-ng g component grover
-```
-
-When we use the Angular CLI tool, it not only creates the components but it also adds them to the module.  This is really cool. I think taking advantage of tools like the angular CLI allows developers to be more efficient; and to focus on building amazing applications rather than spending time writing code that can be generated. When we use scaffolding tools like the CLI it also allows us to be more consistent in our implementation of our services, components, and modules. This is a good thing. 
+I think taking advantage of tools like the angular CLI allows developers to be more efficient; and to focus on building amazing applications rather than spending time writing code that can be generated. When we use scaffolding tools like the CLI it also allows us to be more consistent in our implementation of our services, components, and modules. This is a good thing. 
 
 Therefore, I think it is a great idea to become familiar with all of the abilities of the Angular CLI so that you can improve your practice and delivery of applications, and becoming more efficient. Maybe your friends and coworkers will be amazed at the quality of your code and how fast you deliver your applications.  And you might even get a raise, right? 
 
@@ -673,16 +667,10 @@ import { HttpModule } from '@angular/http';
 import { SimpleLoggerModule, SimpleLoggerService } from 'custom-angular-modules';
 
 import { AppComponent } from './app.component';
-import { ColtraneComponent } from './coltrane/coltrane.component';
-import { SanbornComponent } from './sanborn/sanborn.component';
-import { GroverComponent } from './grover/grover.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ColtraneComponent,
-    SanbornComponent,
-    GroverComponent
   ],
   imports: [
     BrowserModule,
@@ -697,13 +685,11 @@ import { GroverComponent } from './grover/grover.component';
 export class AppModule { }
 ```
 
-
-Now that we some compents to view, we will need to provide some routes to the application. We can implement a new module for routing. Once again let's use the Angular CLI to create a module for providing routes to the application. 
+Now that we at least one component to view, we will need to provide routes to the application. We can implement a new module for routing. Once again let's use the Angular CLI to create a module for providing routes to the application. 
 
 ```
 ng g module appRouting
 ```
-
 
 **app-routing.module.ts**
 ```javascript
@@ -713,16 +699,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './../app.component';
-import { ColtraneComponent } from './../coltrane/coltrane.component';
-import { SanbornComponent } from './../sanborn/sanborn.component';
-import { GroverComponent } from './../grover/grover.component';
 
 const routes: Routes = [
   { path: 'home', component: AppComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'coltrane', component: ColtraneComponent },
-  { path: 'sanborn', component: SanbornComponent },
-  { path: 'grover', component: GroverComponent },
 ];
 
 @NgModule({
@@ -735,4 +715,160 @@ const routes: Routes = [
   ],
 })
 export class AppRoutingModule { }
+```
+
+# Take Your Module to the Next Level
+Many times, a custom module will require some application-specific information. So, how does Angular provide information to a module? We certainly do not want the module to be responsible for retrieving information that it requires. Angular is consistent in how it provides things. It uses dependency injection. This is how ti works.
+
+1. The custom module provides a structure (i.e., a class) as a container for required configuration. 
+2. When the module is referenced and ` provided ` by the container module, it will call a static ` forRoot() ` method on the target custom module and pass in the ` container ` of information. The container being in the same shape as defined by the module
+
+What we will do next is to perform the steps outlined above to create a configuration for the custom module. We will inject or rather allow Angular to ` provide ` the configuration data to the module.
+
+## How do we provide confgiuration information to a Module/Service?
+To enable configuration for a specified module and allow it to be used in the module's services and components, we need to create a new class that defines [what] is configured. In our example, we will create a [loggingServiceConfig] class with a public [applicationName] property.
+
+```javascript
+export class loggingServiceConfig {
+
+    constructor(public applicationName: string) {
+    }
+}
+```
+
+Now we need to allow the configuration to be sent in from an application that will be using the [SimpleLoggingService]. By convention, Angular developers will create a static method on the custom module called ` forRoot(..) `. This static method will create the mechanism for the application to provide configuration to the module. 
+
+1. Import the ` ModuleWithProviders ` from ` angular\core `. This is the return object of the static method ` forRoot(..) `. 
+2. Import the configuration class. 
+3. Create a static method called ` forRoot ` that takes a ` config ` parameter of type ` SimpleLoggerConfig `. The static method will need to return an object that with the same data shape as the ModuleWithProviders interface (e.g., module type and list of providers). 
+4. Set the value for the ` ngModule ` property to the type of the specified module.
+5. Create a ` ValueProvider ` item for the ` providers ` array. Set the value of the ` provide ` property to the type ` SimpleLoggerConfig `. 
+6. Set the value of the ` useValue ` property of the ` ValueProvider ` item using the parameter passed into the static method. 
+
+Here is the updated module with the static ` forRoot() ` method implementation.
+
+**simple-logger.module.ts**
+```javascript
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SimpleLoggerConfig } from './simple-logger.config';
+
+@NgModule({
+  exports: [
+
+  ],
+  imports: [
+    CommonModule
+  ],
+  declarations: []
+})
+export class SimpleLoggerModule {
+
+  /**
+   * A static method to provide configuration to the [SimpleLoggerModule].
+   * @param config Use the [SimpleLoggerConfig] to provide configuration
+   * information to the module.
+   */
+  static forRoot(config: SimpleLoggerConfig) {
+    return {
+      ngModule: SimpleLoggerModule,
+      providers: [{provide: SimpleLoggerConfig, useValue: config}]
+    };
+  }
+ }
+```
+
+Below, we have the interfaces from Angular that provide the mechanism to inject configuration into a module.
+
+```javascript
+export interface ModuleWithProviders {
+    ngModule: Type<any>;
+    providers?: Provider[];
+}
+```
+
+The ` ValueProvider ` allows you to specify the object that will be provided and its value. In our example, the applciation will provide a ` SimpleLoggerConfig ` type that contains the value ` applicationName `. 
+
+```javascript
+export interface ValueProvider {
+    /**
+     * An injection token. (Typically an instance of `Type` or `InjectionToken`, but can be `any`).
+     */
+    provide: any;
+    /**
+     * The value to inject.
+     */
+    useValue: any;
+    /**
+     * If true, then injector returns an array of instances. This is useful to allow multiple
+     * providers spread across many files to provide configuration information to a common token.
+     *
+     * ### Example
+     *
+     * {example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
+     */
+    multi?: boolean;
+}
+```
+
+Now, when an Angular application calls the ` forRoot() ` static method and sends in an instance of the ` SimpleLoggerConfig ` class, the logging module and any other elements in the module will have access to the confgiuration information. I would recommend that the module do some validation on the configuration parameter sent in. You might want to provide some default values and/or implement some exception management depending on the needs of the application.  
+
+The example presented is very simple - but it demonstrates the mechanism of providing configuration to a module. The shape of the configuration data depends on the requirements and needs of the module. Also, it is important to note that the configuration data is now available to members of the module - globally scoped to the specified module. 
+
+## Use the Configuration Within the Module
+
+The ` SimpleLoggerConfig ` is now available for the service to use. The code below shows the updated service using the configuration data injected into the constructor. If you install the Chrome plugin ` Augury `, it should show you the structure of the module and where the configuration is provided and available. 
+
+```javascript
+import { Injectable } from '@angular/core';
+import { Severity } from './severity.enum';
+
+import { SimpleLoggerConfig } from './simple-logger.config';
+
+@Injectable()
+export class SimpleLoggerService {
+
+  private source: string;
+  private severity: Severity;
+  private message: string;
+  private timestamp: Date;
+  private applicationName: string;
+
+  /**
+   * The constructor for the [SimpleLoggerService].
+   * @param config Configuration information injected into the constructor.
+   */
+  constructor(
+    private config: SimpleLoggerConfig // injected by ng; constructor injection
+  ) {
+    if (config) {
+      this.applicationName = config.applicationName;
+    }
+  }
+
+  /**
+   * Use to create a log item in the application console.
+   * @param source 
+   * @param severity 
+   * @param message 
+   */
+  log(source: string, severity: Severity, message: string) {
+    this.source = source;
+    this.severity = severity;
+    this.message = message;
+    this.timestamp = new Date();
+    const msg = `${this.message}`;
+
+    console.log(`${this.severity} from ${this.applicationName}.${this.source}: ${msg} (${this.timestamp})`);
+  }
+}
+```
+
+This is a significant change to the logging module. Therefore, we will up the version of the module. We have a breaking change by modifiying the constructor of the logging service. 
+
+Modify the version of the ` ./dist/package.json ` file using the npm command below. 
+
+```
+npm version major
+npm publish
 ```

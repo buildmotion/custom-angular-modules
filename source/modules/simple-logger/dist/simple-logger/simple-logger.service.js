@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
+import { SimpleLoggerConfig } from './simple-logger.config';
 var SimpleLoggerService = (function () {
-    function SimpleLoggerService() {
+    /**
+     * The constructor for the [SimpleLoggerService].
+     * @param config Configuration information injected into the constructor.
+     */
+    function SimpleLoggerService(config // injected by ng; constructor injection
+    ) {
+        this.config = config; // injected by ng; constructor injection
+        if (config) {
+            this.applicationName = config.applicationName;
+        }
     }
     /**
      * Use to create a log item in the application console.
@@ -26,13 +36,15 @@ var SimpleLoggerService = (function () {
         this.message = message;
         this.timestamp = new Date();
         var msg = "" + this.message;
-        console.log(this.severity + " from " + this.source + ": " + msg + " (" + this.timestamp + ")");
+        console.log(this.severity + " from " + this.applicationName + "." + this.source + ": " + msg + " (" + this.timestamp + ")");
     };
     SimpleLoggerService.decorators = [
         { type: Injectable },
     ];
     /** @nocollapse */
-    SimpleLoggerService.ctorParameters = function () { return []; };
+    SimpleLoggerService.ctorParameters = function () { return [
+        { type: SimpleLoggerConfig, },
+    ]; };
     return SimpleLoggerService;
 }());
 export { SimpleLoggerService };
