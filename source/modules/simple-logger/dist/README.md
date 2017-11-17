@@ -1,8 +1,10 @@
-# Custom Angular Modules
+# Custom Angular Modules :: A Guide on Creating, Publishing, and Using Angular Modules
 A repository of resources for creating shareable custom angular modules. Includes presentation collateral, source code, and guides.
 
 ## Setup
-The following section outlines the tools that will be used to develop our custom angular modules. 
+The following section outlines the tools that will be used to develop our custom angular modules. It has been awhile since I've updated to newer version of Angular and Typescript - so I wanted to upgrade my personal development environment for this little project. This guide is using version 5 of Angular modules and version 2.4 of Typescript. It is not a requirement to use these versions for developing custom Angular modules. Your considerations are that the versions are compatible with each other and what versions you want to target for consumers of your module. 
+
+Not everyone is going to be using the latest versions of Angular and Typescript. If you are developing custom modules to share within your ` private ` development environment (work, school), you may not want to make your modules public and availabe on repositories like [npm](.https://www.npmjs.com). Therefore, the versions that you are using is not a major concern. However, if you are developing modules that you want to share with the world, because you are awesome, you will have to have at least some consideration for users of your custom module libraries.   
 
 ### Visual Studio Code
 Visual Studio Code is a lightweight but powerful source code editor which runs on your desktop and is available for Windows, macOS and Linux. It comes with built-in support for JavaScript, TypeScript and Node.js and has a rich ecosystem of extensions for other languages (such as C++, C#, Java, Python, PHP, Go) and runtimes (such as .NET and Unity). Begin your journey with VS Code with these introductory videos.
@@ -59,6 +61,11 @@ Use the the npm command to create a new package.json file for the new project. T
 ```javascript
 npm init
 ```
+
+Learn more at:
+* [https://docs.npmjs.com/cli/init](https://docs.npmjs.com/cli/init)
+* [https://docs.npmjs.com/files/package.json](https://docs.npmjs.com/files/package.json)
+* [https://docs.npmjs.com/misc/config](https://docs.npmjs.com/misc/config)
 
 The default contents of the ` package.json ` file is:
 
@@ -648,7 +655,7 @@ export class AppModule { }
 ```
 
 ### Updating Components
-Remember that the definition of an angular module is that it is a container of closely related things that work together to provide some feature, service, or functionality.  Your angular web applicaton has a root module ` AppModule ` - this module can also own components use them to basically compose the features of the application. Angular application require at least one component. By default, the Angular CLI creates an ` AppComponent `. 
+Remember that the definition of an angular module is that it is a container of closely related things that work together to provide some feature, service, or functionality.  Your angular web applicaton has a root module ` AppModule ` - this module can also own components and use them to basically compose the features of the application. Angular application require at least one component. By default, the Angular CLI creates an ` AppComponent `. 
 
 When we use the Angular CLI tool, it not only creates the components but it also adds them to a module. This is really cool. Components are always owned by an ` @NgModule ` - they cannot exist by themselves.
 

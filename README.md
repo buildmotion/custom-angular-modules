@@ -655,7 +655,7 @@ export class AppModule { }
 ```
 
 ### Updating Components
-Remember that the definition of an angular module is that it is a container of closely related things that work together to provide some feature, service, or functionality.  Your angular web applicaton has a root module ` AppModule ` - this module can also own components use them to basically compose the features of the application. Angular application require at least one component. By default, the Angular CLI creates an ` AppComponent `. 
+Remember that the definition of an angular module is that it is a container of closely related things that work together to provide some feature, service, or functionality.  Your angular web applicaton has a root module ` AppModule ` - this module can also own components and use them to basically compose the features of the application. Angular application require at least one component. By default, the Angular CLI creates an ` AppComponent `. 
 
 When we use the Angular CLI tool, it not only creates the components but it also adds them to a module. This is really cool. Components are always owned by an ` @NgModule ` - they cannot exist by themselves.
 
