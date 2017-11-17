@@ -230,36 +230,35 @@ The final configuration for ` tsconfig.json `
 ```javascript
 {
   "compilerOptions": {
-    /* Basic Options */
-    "target": "es5", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
-    "module": "es2015", /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "target": "es5",
+    "module": "es2015",
     "lib": [
       "es2015",
       "dom"
     ],
     /* Specify library files to be included in the compilation:  */
-    "declaration": true, /* Generates corresponding '.d.ts' file. */
-    "sourceMap": true, /* Generates corresponding '.map' file. */
-    "outDir": "dist", /* Redirect output structure to the directory. */
-    "rootDir": "src/app", /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "rootDir": "src/app",
     "skipLibCheck": true,
     /* Strict Type-Checking Options */
-    "strict": true, /* Enable all strict type-checking options. */
-    "noImplicitAny": true, /* Raise error on expressions and declarations with an implied 'any' type. */
-    "strictNullChecks": true, /* Enable strict null checks. */
+    "strict": true,
+    "noImplicitAny": true, 
+    "strictNullChecks": true,
     "stripInternal": true,
     /* Module Resolution Options */
-    "moduleResolution": "node", /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
-    "baseUrl": "./", /* Base directory to resolve non-absolute module names. */
+    "moduleResolution": "node", 
+    "baseUrl": "./", 
     "paths": {
       "@angular/core": [
         "node_modules/@angular/core/*"
       ]
     },
     /* Source Map Options */
-    "inlineSources": true, /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
+    "inlineSources": true,
     /* Experimental Options */
-    "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */
+    "experimentalDecorators": true 
   },
   "files": [
     "./src/app/index.ts"
