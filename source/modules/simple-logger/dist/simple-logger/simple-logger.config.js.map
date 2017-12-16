@@ -1,0 +1,1 @@
+{"version":3,"file":"simple-logger.config.js","sourceRoot":"","sources":["../../src/app/simple-logger/simple-logger.config.ts"],"names":[],"mappings":"AAAA,IAAA;IAEI,4BAAmB,eAAuB;QAAvB,oBAAe,GAAf,eAAe,CAAQ;KACzC;6BAHL;IAIC,CAAA;AAJD,8BAIC","sourcesContent":["export class SimpleLoggerConfig {\r\n\r\n    constructor(public applicationName: string) {\r\n    }\r\n}\r\n"]}
